@@ -1,4 +1,4 @@
-﻿using static WeatherApp.API.Models.Models;
+﻿using WeatherApp.API.Entities;
 
 namespace WeatherApp.API.Models
 {

@@ -6,6 +6,6 @@ namespace WeatherApp.API.services
     {
         Task<WeatherResponse> GetWeatherApi(double latitude, double longitude);
         Task<WeatherResponse> GetWeatherByCityName(string cityName);
-        Task<WeatherResponse> AirPolution(int lat, int lon);
+        Task<WeatherResponse> GetWeatherApi2(double latitude, double longitude);
     }
 }

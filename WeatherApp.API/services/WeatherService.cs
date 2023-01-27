@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
+using System.Text.Json;
+using WeatherApp.API.Entities;
 using WeatherApp.API.Models;
-using static WeatherApp.API.Models.Models;
 
 namespace WeatherApp.API.services
 {
@@ -24,7 +25,7 @@ namespace WeatherApp.API.services
             response.EnsureSuccessStatusCode();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            var responseObject = await System.Text.Json.JsonSerializer.DeserializeAsync<CurrentWeather>(responseStream);
+            var responseObject = await JsonSerializer.DeserializeAsync<CurrentWeather>(responseStream);
 
             return new WeatherResponse { currentWeather = responseObject, IsSuccess = true};
         }
@@ -37,22 +38,22 @@ namespace WeatherApp.API.services
             response.EnsureSuccessStatusCode();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            var responseObject = await System.Text.Json.JsonSerializer.DeserializeAsync<CurrentWeather>(responseStream);
+            var responseObject = await JsonSerializer.DeserializeAsync<CurrentWeather>(responseStream);
 
             return new WeatherResponse { currentWeather = responseObject, IsSuccess = true};
         }
         
-        public async Task<WeatherResponse> AirPolution(int lat, int lon)
+        public async Task<WeatherResponse> GetWeatherApi2(double latitude, double longitude)
         {
             _httpClient.BaseAddress = new Uri(_configuration["WeatherSettings:BaseUrl"]);
-            var response = await _httpClient.GetAsync($"air_pollution?lat={lat}&lon={lon}&appid={_configuration["WeatherSettings:ApiKey"]}");
+            var response = await _httpClient.GetAsync($"weather?lat={latitude}&lon={longitude}&appid={_configuration["WeatherSettings:ApiKey"]}");
 
             response.EnsureSuccessStatusCode();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            var responseObject = await System.Text.Json.JsonSerializer.DeserializeAsync<CurrentAirPollutionData>(responseStream);
+            var responseObject = await JsonSerializer.DeserializeAsync<CurrentWeather>(responseStream);
 
-            return new WeatherResponse { CurrentAirPollutionData = responseObject, IsSuccess = true};
+            return new WeatherResponse { currentWeather = responseObject, IsSuccess = true};
         }
 
 

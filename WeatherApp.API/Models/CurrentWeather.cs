@@ -1,6 +1,5 @@
 ﻿namespace WeatherApp.API.Models
 {
-
     public class CurrentWeather
     {
         public Coord coord { get; set; }

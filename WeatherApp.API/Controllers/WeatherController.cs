@@ -44,15 +44,15 @@ namespace WeatherApp.API.Controllers
         }
 
         [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.User}")]
-        [HttpGet("Air_pollution")]
-        public async Task<IActionResult> AirPollution(int lattitude, int longitude)
+        [HttpGet("Current_weather_data 2")]
+        public async Task<IActionResult> GetWeatherApi2(double latitude, double longitude)
         {
-            if (lattitude < 0 || longitude < 0)
-                return BadRequest(new { lattitude, longitude });
+            if (latitude < 0 || longitude < 0)
+                return BadRequest(new { latitude, longitude });
 
-            var weather = await _weatherService.AirPolution(lattitude, longitude);
+            var weather = await _weatherService.GetWeatherApi2(latitude, longitude);
 
-            return Ok(weather.CurrentAirPollutionData);
+            return Ok(weather);
         }
 
     }
